@@ -47,27 +47,13 @@ import data from "./data";
 // }
 
 
-const convertFirstLetterToCapital = text => text[0].toUpperCase() + text.slice(1);
+const capitalizeFirstLetter = text => text[0].toUpperCase() + text.slice(1);
 
-const changeTheStyleForOutput = result => {
+const prepareResultToPrinting = result => {
   const outputResult = result.map((element, index) => (index >= 9 ? index : "0" + (index + 1) + ' "' + element + '"'));
   return outputResult;
 }
 
-const swap=(result,index)=>{
-  let temp = result[index - 1];
-  result[index - 1] = result[index];
-  result[index] = temp;
-}
-const sortResult = result => {
-  for (let index = result.length - 1; index >= 1; index--) {
-    if (result[index - 1] > result[index]) {
-     swap(result,index);
-    } else {
-      break;
-    }
-  }
-}
 export const main = data => {
   let result;
   if (data.length == 0) {
@@ -76,14 +62,13 @@ export const main = data => {
   result = [];
   let temp = [];
   data.forEach(statementOfData => {
-    
     if (statementOfData.search(/ /i) != -1 && !temp.includes(statementOfData.toLowerCase())) {
       temp.push(statementOfData.toLowerCase());
-      result.push(convertFirstLetterToCapital(statementOfData));
+      result.push(capitalizeFirstLetter(statementOfData));
     }
-    sortResult(result);
   });
-  result = changeTheStyleForOutput(result);
+  result.sort();
+  result = prepareResultToPrinting(result);
   return result;
 }
 
