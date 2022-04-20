@@ -12,22 +12,13 @@ describe("testing on main function", () => {
     expect(main([])).toBeUndefined();
   });
 
-  it("call main with array have 1 statement and  contain 1 word start with small letter", () => {
-    expect(main(["hello"])).toIncludeSameMembers([]);
+  it("call main with array have 2 statement and  contain 1 word start with small letter and capital", () => {
+    expect(main(["hello","Hello"])).toIncludeSameMembers([]);
   });
 
-  it("call main with array 1 statement but contain 1 word state with capital", () => {
-    expect(main(["Hello"])).toIncludeSameMembers([]);
+  it("call main with array 2 element start with small letter and capital", () => {
+    expect(main(["hello from me","Hello from me"])).toIncludeSameMembers(['01 "Hello from me"']);
   });
-
-  it("call main with array 1 element start with small letter", () => {
-    expect(main(["hello from me"])).toIncludeSameMembers(['01 "Hello from me"']);
-  });
-
-  it("call main with 1 array statement  start with capital letter", () => {
-    expect(main(["Hello from me"])).toIncludeSameMembers(['01 "Hello from me"']);
-  });
-
 
   it("call main with many statements but all statements are same (uncase sensitive)", () => {
     expect(main(["Hello from me", "hello from me", "hello From Me",])).toIncludeSameMembers(['01 "Hello from me"']);
