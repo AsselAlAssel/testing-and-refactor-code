@@ -6,14 +6,14 @@
     "scripts": {
         "start": "parcel index.html --open",
         "build": "parcel build index.html",
-        "test": "jest --watchAll"
+        "test": "jest --collect-coverage --watchAll"
     },
-    "dependencies": {},
     "devDependencies": {
         "@babel/core": "7.2.0",
         "jest": "^27.5.1",
         "jest-extended": "^2.0.0",
-        "parcel-bundler": "^1.6.1"
+        "parcel-bundler": "^1.6.1",
+        "prettier": "2.6.2"
     },
     "keywords": []
 }

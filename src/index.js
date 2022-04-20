@@ -2,75 +2,31 @@
 
 import data from "./data";
 
-// export function main(data) {
-//   var data1 = [];
-//   // iterate through the data
-//   for (var i = 0; i < data.length; i++) {
-//     var match = false; // initialize the flag
-//     for (var j = 0; j < data1.length; j++) {
-//       if (data1[j].toLowerCase() == data[i].toLowerCase()) {
-//         match = true;
-//         break;
-//       }
-//     }
-//     if (match == false) {
-//       data1[data1.length] = data[i];
-//       var code = data[i].charCodeAt(0);
-//       if (code >= 97 && code <= 122) {
-//         code = code - 32;
-//       }
-//       data1[data1.length - 1] =
-//         String.fromCharCode(code) + data[i].substr(1, data[i].length - 1);
-//       var length = data1.length;
-//       if (length > 1) {
-//         for (var k = length - 1; k >= 1; k--) {
-//           const x = data1[k];
-//           if (data1[k - 1] > x) {
-//             let c = data1[k - 1]; // remember temporary value
-//             data1[k - 1] = x;
-//             data1[k] = c;
-//           }
-//         }
-//       }
-//       var result = Array.prototype.filter.apply(data1, [
-//         (value) => value.search(/ /i) != -1
-//       ]); // important
-//       var num = 1;
-//       for (var line of result) {
-//         result[num - 1] = (num <= 9 ? "0" + num : num) + ' "' + line + '"';
-//         num++; // increase counter
-//       }
-//     }
-//   }
+const capitalizeFirstLetter = (text) => text[0].toUpperCase() + text.slice(1);
 
-//   return result;
-// }
+const prepareResultToPrinting = (result) => {
+  return result.map((element, index) =>
+    index >= 9 ? index : "0" + (index + 1) + ' "' + element + '"'
+  );
+};
 
+const hasMoreThanOneWord = (statement) => statement.split(" ").length > 1;
 
-const capitalizeFirstLetter = text => text[0].toUpperCase() + text.slice(1);
+export const main = (data) => {
+  if (data.length == 0) return undefined;
 
-const prepareResultToPrinting = result => {
-  const outputResult = result.map((element, index) => (index >= 9 ? index : "0" + (index + 1) + ' "' + element + '"'));
-  return outputResult;
-}
+  const loweredCaseData = data.map((element) => element.toLowerCase());
+  const uniqData = [...new Set(loweredCaseData)];
 
-export const main = data => {
-  let result;
-  if (data.length == 0) {
-    return result;
-  }
-  result = [];
-  let temp = [];
-  data.forEach(statementOfData => {
-    if (statementOfData.search(/ /i) != -1 && !temp.includes(statementOfData.toLowerCase())) {
-      temp.push(statementOfData.toLowerCase());
-      result.push(capitalizeFirstLetter(statementOfData));
-    }
+  const result = uniqData.map((statement) => {
+    const correspondingData = data[loweredCaseData.indexOf(statement)];
+    if (hasMoreThanOneWord(correspondingData))
+      return capitalizeFirstLetter(correspondingData);
   });
-  result.sort();
-  result = prepareResultToPrinting(result);
-  return result;
-}
+
+  const filteredBoolean = result.filter(Boolean).sort();
+  return prepareResultToPrinting(filteredBoolean);
+};
 
 function render(list) {
   var mountPoint = document.createElement("div");
