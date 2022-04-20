@@ -6,7 +6,8 @@ const capitalizeFirstLetter = (text) => text[0].toUpperCase() + text.slice(1);
 
 const prepareResultToPrinting = (result) => {
   return result.map((element, index) =>
-    index >= 9 ? index : "0" + (index + 1) + ' "' + element + '"'
+    // (index >=9 ? index : "0" + (index + 1)) + ' "' + element + '"'
+    `${index >=9 ? index+1 : "0" + (index + 1)} "${element}"`
   );
 };
 
