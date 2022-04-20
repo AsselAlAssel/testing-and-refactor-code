@@ -54,13 +54,15 @@ const changeTheStyleForOutput = result => {
   return outputResult;
 }
 
+const swap=(result,index)=>{
+  let temp = result[index - 1];
+  result[index - 1] = result[index];
+  result[index] = temp;
+}
 const sortResult = result => {
   for (let index = result.length - 1; index >= 1; index--) {
-    const curr = result[index];
-    if (result[index - 1] > curr) {
-      let temp = result[index - 1];
-      result[index - 1] = curr;
-      result[index] = temp;
+    if (result[index - 1] > result[index]) {
+     swap(result,index);
     } else {
       break;
     }
@@ -72,18 +74,14 @@ export const main = data => {
     return result;
   }
   result = [];
+  let temp = [];
   data.forEach(statementOfData => {
-    let match = false;
-    for (let statementOfResult of result) {
-      if (statementOfData.toLowerCase() === statementOfResult.toLowerCase()) {
-        match = true;
-        break;
-      }
-    }
-    if (!match && statementOfData.search(/ /i) != -1) {
+    
+    if (statementOfData.search(/ /i) != -1 && !temp.includes(statementOfData.toLowerCase())) {
+      temp.push(statementOfData.toLowerCase());
       result.push(convertFirstLetterToCapital(statementOfData));
-      sortResult(result);
     }
+    sortResult(result);
   });
   result = changeTheStyleForOutput(result);
   return result;
