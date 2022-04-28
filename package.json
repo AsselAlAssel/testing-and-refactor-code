@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.html",
     "scripts": {
-        "start": "parcel index.html --open",
+        "start": "parcel index.html --open -p 3000",
         "build": "parcel build index.html",
         "test": "jest --collect-coverage --watchAll"
     },
